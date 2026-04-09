@@ -1,0 +1,38 @@
+{% extends 'includes/layout.html' %}
+
+
+{% block body %}
+<main class="container">
+  <div class="bg-light p-5 rounded mt-5">
+    <h1> Blog Titles </h1>
+    <p class="lead">
+    Want to get started on a Blog? This AI tool will help draft some cool ideas to begin your blog on any topic.
+    </p>
+
+    <h2>Enter the topic you would like to discuss.</h2>
+
+    <form class="" action="/blog-ideas" method="post">
+
+      <div class="mb-3">
+        <label class="form-label">Topic or Subject</label>
+        <input type="text" class="form-control" name="blogIdeas" placeholder="eg. Accounting Software">
+        <div class="form-text">Enter topic to generate blog ideas.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg"> 💃 GET RECOMMENDATIONS</button>
+
+    </form>
+  </div>
+
+
+  <div class="p-3 rounded">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="text-primary">{{prompt}}</h3>
+        <p class="lead">{{openAIAnswer}}</p>
+
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
