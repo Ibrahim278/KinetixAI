@@ -83,6 +83,11 @@ def download_pdf():
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    return render_template('landing.html', **locals())
+
+
+@app.route('/categories', methods=["GET"])
+def categories():
     return render_template('index.html', **locals())
 
 

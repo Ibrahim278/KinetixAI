@@ -1,0 +1,70 @@
+{% extends 'includes/layout.html' %}
+
+
+{% block body %}
+<main class="container">
+  <section class="hero-panel reveal-up tech-hero">
+    <div class="tech-glow"></div>
+    <span class="eyebrow">CogniCore</span>
+    <h1 class="hero-title landing-title">CogniCore</h1>
+    <p class="hero-copy landing-copy">Create High-Impact Marketing Content Faster</p>
+
+    <a href="/categories" class="btn btn-primary btn-lg mt-3">Choose Your Category</a>
+  </section>
+
+  <style>
+    .tech-hero {
+      min-height: 68vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.25rem;
+      background:
+        linear-gradient(130deg, rgba(7, 21, 39, 0.96), rgba(12, 43, 60, 0.92)),
+        radial-gradient(circle at 80% 20%, rgba(0, 195, 255, 0.2), transparent 42%),
+        radial-gradient(circle at 12% 78%, rgba(0, 255, 163, 0.15), transparent 40%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 22px 38px rgba(5, 18, 31, 0.5);
+      color: #e9fbff;
+    }
+
+    .tech-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(112, 228, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(112, 228, 255, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .tech-glow {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -80px;
+      top: -70px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(50, 214, 255, 0.42), rgba(14, 29, 47, 0.01));
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .landing-title {
+      font-size: clamp(2.5rem, 5.4vw, 5rem);
+      margin-bottom: 0.45rem;
+      color: #ffffff;
+    }
+
+    .landing-copy {
+      font-size: clamp(1.05rem, 2vw, 1.45rem);
+      color: #caf5ff;
+      max-width: 33ch;
+    }
+  </style>
+</main>
+{% endblock %}
