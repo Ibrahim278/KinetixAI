@@ -1,6 +1,6 @@
 # AI Based Content Generation
 
-A Flask web app that generates marketing and content-writing suggestions using OpenAI.
+A Flask web app that generates marketing and content-writing suggestions using GenAI.
 
 This project provides multiple content tools in one UI, including:
 - Product descriptions
