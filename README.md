@@ -24,12 +24,13 @@ This project provides multiple content tools in one UI, including:
 7. [Installation](#installation)
 8. [Configuration](#configuration)
 9. [Run the Application](#run-the-application)
-10. [Available Routes](#available-routes)
-11. [Known Issues and Limitations](#known-issues-and-limitations)
-12. [Troubleshooting](#troubleshooting)
-13. [Security Notes](#security-notes)
-14. [Recommended Improvements](#recommended-improvements)
-15. [License](#license)
+10. [Run with Docker](#run-with-docker)
+11. [Available Routes](#available-routes)
+12. [Known Issues and Limitations](#known-issues-and-limitations)
+13. [Troubleshooting](#troubleshooting)
+14. [Security Notes](#security-notes)
+15. [Recommended Improvements](#recommended-improvements)
+16. [License](#license)
 
 ## Project Overview
 
@@ -63,6 +64,8 @@ AI Based Content Generation/
 ├── aicontent.py            # Core OpenAI helper used by most routes
 ├── blog.py                 # Additional blog helper functions (currently not wired to routes)
 ├── config.py               # Flask config + OpenAI key placeholder
+├── Dockerfile              # Container image definition
+├── docker-compose.yml      # Local container orchestration
 ├── LICENSE
 ├── README.md
 └── templates/
@@ -143,6 +146,30 @@ python app.py
 The app starts in debug mode and is available at:
 
 - http://127.0.0.1:5000/
+
+## Run with Docker
+
+### Option A: Docker Compose (recommended)
+
+```bash
+export OPENAI_API_KEY="your_api_key_here"
+docker compose up --build
+```
+
+Then open:
+
+- http://127.0.0.1:5000/
+
+### Option B: Docker only
+
+```bash
+docker build -t ai-content-generator .
+docker run --rm -p 5000:5000 -e OPENAI_API_KEY="your_api_key_here" ai-content-generator
+```
+
+Notes:
+- The image uses Python 3.11 slim.
+- Flask listens on `0.0.0.0:5000` inside the container.
 
 ## Available Routes
 
