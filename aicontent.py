@@ -7,6 +7,16 @@ _client = OpenAI(
     base_url=config.CEREBRAS_API_BASE,
 )
 
+_FORMAT_GUIDE = """
+Formatting requirements:
+- Return valid Markdown only.
+- Use clear section headings with '##' and '###'.
+- Use standard lists with '-' or '1.' for bullets.
+- Do not use unicode bullet symbols like '•'.
+- Keep spacing and indentation consistent.
+- Avoid markdown tables unless explicitly requested.
+""".strip()
+
 
 def _extract_response_text(response):
     choices = response.choices if response and response.choices else []
@@ -28,8 +38,11 @@ def _extract_response_text(response):
 
 def openAI(query):
     messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": query},
+        {
+            "role": "system",
+            "content": "You are a helpful assistant that writes clean, structured, easy-to-scan markdown.",
+        },
+        {"role": "user", "content": f"{query}\n\n{_FORMAT_GUIDE}"},
     ]
 
     chunks = []
@@ -65,7 +78,7 @@ def openAI(query):
         messages.append(
             {
                 "role": "user",
-                "content": "Continue exactly from where you stopped. Do not repeat previous text.",
+                "content": "Continue exactly from where you stopped. Do not repeat previous text and preserve the same markdown structure.",
             }
         )
 
