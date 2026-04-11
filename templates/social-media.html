@@ -3,15 +3,16 @@
 
 {% block body %}
 <main class="container">
-  <div class="bg-light p-5 rounded mt-5">
-    <h1> 👨‍👩‍👧‍👦 Social Media Adverts 👨‍👩‍👧‍👦 </h1>
-    <p class="lead">
-    Looking for some creative social media advert ideas for your online campaigns on Facebook, Twitter or Instagram? We got you.
-    </p>
+  <section class="hero-panel reveal-up mb-4">
+    <span class="eyebrow">Campaign Flow</span>
+    <h1 class="hero-title">👨‍👩‍👧‍👦 Social Media Ad Copy</h1>
+    <p class="hero-copy">Build sharper ad messaging for cross-platform social campaigns in seconds.</p>
+  </section>
 
+  <section class="tool-panel reveal-up mb-4">
     <h2>What is your ad campaign about?</h2>
 
-    <form class="" action="/social-media" method="post">
+    <form action="/social-media" method="post">
 
       <div class="mb-3">
         <label class="form-label">Subject or Title</label>
@@ -19,20 +20,19 @@
         <div class="form-text">Describe the subject or title for the ad campaign.</div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg"> 💃 GET RECOMMENDATIONS</button>
+      <button type="submit" class="btn btn-primary btn-lg">Generate Copy</button>
 
     </form>
-  </div>
+  </section>
 
 
-  <div class="p-3 rounded">
-    <div class="row">
-      <div class="col-lg-12">
-        <h3 class="text-primary">{{prompt}}</h3>
-        <p class="lead">{{openAIAnswer}}</p>
-
-      </div>
-    </div>
-  </div>
+  <section class="result-panel reveal-up">
+    {% if openAIAnswer %}
+      <h3 class="result-title">{{prompt}}</h3>
+      <p class="result-body">{{openAIAnswer}}</p>
+    {% else %}
+      <p class="placeholder-result">Your generated social media content will appear here once you submit your prompt.</p>
+    {% endif %}
+  </section>
 </main>
 {% endblock %}
