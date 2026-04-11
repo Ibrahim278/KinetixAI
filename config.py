@@ -16,3 +16,8 @@ config = {
 
 ## Enter your Open API Key here
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+
+# Cerebras API settings
+CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY", "")
+CEREBRAS_API_BASE = os.getenv("CEREBRAS_API_BASE", "https://api.cerebras.ai/v1")
+CEREBRAS_MODEL = os.getenv("CEREBRAS_MODEL", "gpt-oss-120b")

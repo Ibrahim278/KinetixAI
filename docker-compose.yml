@@ -9,5 +9,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      CEREBRAS_API_KEY: ${CEREBRAS_API_KEY:-}
+      CEREBRAS_MODEL: ${CEREBRAS_MODEL:-gpt-oss-120b}
+      CEREBRAS_API_BASE: ${CEREBRAS_API_BASE:-https://api.cerebras.ai/v1}
       FLASK_ENV: development
