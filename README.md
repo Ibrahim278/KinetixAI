@@ -251,6 +251,37 @@ If you installed openai>=1 accidentally, either:
 - Add email workflows: welcome sequence, nurture sequence, and sales follow-up templates.
 - Add support and technical writing categories: help docs, release notes, and changelog generation.
 
+#### Proposed New Categories
+
+- LinkedIn Posts
+- Instagram Captions
+- Facebook Ad Copy
+- Google Ads Headlines and Descriptions
+- Email Subject Lines
+- Newsletter Drafts
+- Landing Page Copy
+- SEO Meta Titles and Descriptions
+- FAQ Generator
+- Product Comparison Copy
+- Testimonial Requests and Replies
+- Press Release Drafts
+- Case Study Outline
+- Webinar and Event Promotion Copy
+- Sales Follow-up Messages
+- Customer Support Responses
+- Script Hooks for Reels, Shorts, and TikTok
+- Call-to-Action Variations
+- Brand Taglines and Slogans
+- Content Repurposer (Blog to Thread, Email, and Social Post)
+
+#### Priority Categories (First 5)
+
+- LinkedIn Posts
+- Google Ads Copy
+- Email Subject Lines
+- Landing Page Copy
+- SEO Meta Titles and Descriptions
+
 ### Platform and Collaboration
 
 - Add user accounts, saved history, and project-based organization.
