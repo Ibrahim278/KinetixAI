@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>404</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>This is the 404 Page</h1>
-    </div>
-  </body>
-</html>
+{% extends 'includes/layout.html' %}
+
+
+{% block body %}
+<main class="container">
+  <section class="hero-panel reveal-up text-center">
+    <span class="eyebrow">404</span>
+    <h1 class="hero-title">Page Not Found</h1>
+    <p class="hero-copy mx-auto">The page you requested does not exist or may have been moved. Use the button below to return to the content studio.</p>
+    <a href="/" class="btn btn-primary btn-lg mt-3">Back to Home</a>
+  </section>
+</main>
+{% endblock %}

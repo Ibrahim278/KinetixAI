@@ -3,15 +3,16 @@
 
 {% block body %}
 <main class="container">
-  <div class="bg-light p-5 rounded mt-5">
-    <h1> 🛍️ Amazon Product Descriptions 🛍 </h1>
-    <p class="lead">
-    Want to generate descriptions for Amazon products? This AI tool will help draft some cool information for Amazon products.
-    </p>
+  <section class="hero-panel reveal-up mb-4">
+    <span class="eyebrow">Marketplace Copy</span>
+    <h1 class="hero-title">🛍️ Amazon Product Descriptions</h1>
+    <p class="hero-copy">Generate clear and persuasive Amazon-ready product messaging from a single prompt.</p>
+  </section>
 
-    <h2>Enter the product name.</h2>
+  <section class="tool-panel reveal-up mb-4">
+    <h2>Enter the product name</h2>
 
-    <form class="" action="/blog-ideas" method="post">
+    <form action="/blog-ideas" method="post">
 
       <div class="mb-3">
         <label class="form-label">Topic or Subject</label>
@@ -19,20 +20,19 @@
         <div class="form-text">Enter the Amazon Product .</div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg"> 💃 GET RECOMMENDATIONS</button>
+      <button type="submit" class="btn btn-primary btn-lg">Generate Copy</button>
 
     </form>
-  </div>
+  </section>
 
 
-  <div class="p-3 rounded">
-    <div class="row">
-      <div class="col-lg-12">
-        <h3 class="text-primary">{{prompt}}</h3>
-        <p class="lead">{{openAIAnswer}}</p>
-
-      </div>
-    </div>
-  </div>
+  <section class="result-panel reveal-up">
+    {% if openAIAnswer %}
+      <h3 class="result-title">{{prompt}}</h3>
+      <p class="result-body">{{openAIAnswer}}</p>
+    {% else %}
+      <p class="placeholder-result">Your generated Amazon description will appear here once you submit your prompt.</p>
+    {% endif %}
+  </section>
 </main>
 {% endblock %}
