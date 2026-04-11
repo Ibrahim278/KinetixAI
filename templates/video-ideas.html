@@ -29,7 +29,7 @@
   <section class="result-panel reveal-up">
     {% if openAIAnswer %}
       <h3 class="result-title">{{prompt}}</h3>
-      <p class="result-body">{{openAIAnswer}}</p>
+      <div class="result-body markdown-output">{{openAIAnswer}}</div>
     {% else %}
       <p class="placeholder-result">Your generated YouTube video ideas will appear here once you submit your prompt.</p>
     {% endif %}

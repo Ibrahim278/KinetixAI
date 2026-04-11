@@ -1,23 +1,25 @@
 import os
-import openai
+from openai import OpenAI
 import config
 
-openai.api_key = os.getenv("CEREBRAS_API_KEY", config.CEREBRAS_API_KEY)
-openai.api_base = config.CEREBRAS_API_BASE
+_client = OpenAI(
+  api_key=os.getenv("CEREBRAS_API_KEY", config.CEREBRAS_API_KEY),
+  base_url=config.CEREBRAS_API_BASE,
+)
 
 
 def _extract_response_text(response):
-  choices = response.get("choices", [])
+  choices = response.choices if response and response.choices else []
   if not choices:
     return ""
 
   first_choice = choices[0]
-  message = first_choice.get("message", {})
-  content = message.get("content")
+  message = getattr(first_choice, "message", None)
+  content = message.content if message else None
   if content:
     return content.strip()
 
-  text = first_choice.get("text")
+  text = getattr(first_choice, "text", None)
   if text:
     return text.strip()
 
@@ -25,7 +27,7 @@ def _extract_response_text(response):
 
 
 def generateBlogTopics(prompt1):
-    response = openai.ChatCompletion.create(
+  response = _client.chat.completions.create(
       model=config.CEREBRAS_MODEL,
       messages=[
           {"role": "system", "content": "You are a helpful assistant."},
@@ -36,12 +38,12 @@ def generateBlogTopics(prompt1):
       top_p=1,
       frequency_penalty=0,
       presence_penalty=0
-    )
+  )
 
-    return _extract_response_text(response)
+  return _extract_response_text(response)
 
 def generateBlogSections(prompt1):
-    response = openai.ChatCompletion.create(
+  response = _client.chat.completions.create(
       model=config.CEREBRAS_MODEL,
       messages=[
           {"role": "system", "content": "You are a helpful assistant."},
@@ -52,12 +54,12 @@ def generateBlogSections(prompt1):
       top_p=1,
       frequency_penalty=0,
       presence_penalty=0
-    )
+  )
 
-    return _extract_response_text(response)
+  return _extract_response_text(response)
 
 def blogSectionExpander(prompt1):
-    response = openai.ChatCompletion.create(
+  response = _client.chat.completions.create(
       model=config.CEREBRAS_MODEL,
       messages=[
           {"role": "system", "content": "You are a helpful assistant."},
@@ -68,6 +70,6 @@ def blogSectionExpander(prompt1):
       top_p=1,
       frequency_penalty=0,
       presence_penalty=0
-    )
+  )
 
-    return _extract_response_text(response)
+  return _extract_response_text(response)
