@@ -1,4 +1,4 @@
-# CogniCore
+# CogniCore: An AI-Equipped Content Generation Studio
 
 CogniCore is an AI-equipped content generation studio built with Flask.
 
