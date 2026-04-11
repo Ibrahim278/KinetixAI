@@ -1,4 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
+from io import BytesIO
+import re
+import textwrap
+
+try:
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import letter
+except ImportError:
+    canvas = None
+    letter = None
 
 import config
 import aicontent
@@ -11,6 +21,64 @@ def page_not_found(e):
 app = Flask(__name__)
 app.config.from_object(config.config['development'])
 app.register_error_handler(404, page_not_found)
+
+
+def _safe_filename(value):
+    value = re.sub(r"[^a-zA-Z0-9_-]+", "-", (value or "generated-output").strip().lower())
+    value = re.sub(r"-+", "-", value).strip("-")
+    return value or "generated-output"
+
+
+def _strip_markdown(text):
+    if not text:
+        return ""
+    text = re.sub(r"\*\*(.*?)\*\*", r"\1", text)
+    text = re.sub(r"`(.*?)`", r"\1", text)
+    text = re.sub(r"^#+\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*[-*]\s+", "- ", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*\d+\.\s+", "", text, flags=re.MULTILINE)
+    return text
+
+
+@app.route('/download-pdf', methods=["POST"])
+def download_pdf():
+    if canvas is None or letter is None:
+        return "PDF export requires reportlab. Install it with: pip install reportlab", 500
+
+    title = (request.form.get('title') or "Generated Output").strip()
+    content = (request.form.get('content') or "").strip()
+    category = (request.form.get('category') or "content").strip()
+
+    if not content:
+        return "No content found to export.", 400
+
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=letter)
+    page_width, page_height = letter
+    x_margin = 48
+    y = page_height - 55
+
+    pdf.setFont("Helvetica-Bold", 14)
+    pdf.drawString(x_margin, y, title[:95])
+    y -= 24
+
+    pdf.setFont("Helvetica", 11)
+    clean_text = _strip_markdown(content)
+    for paragraph in clean_text.splitlines():
+        lines = textwrap.wrap(paragraph, width=98) if paragraph.strip() else [""]
+        for line in lines:
+            if y < 55:
+                pdf.showPage()
+                pdf.setFont("Helvetica", 11)
+                y = page_height - 55
+            pdf.drawString(x_margin, y, line)
+            y -= 16
+
+    pdf.save()
+    buffer.seek(0)
+
+    filename = f"{_safe_filename(category)}-output.pdf"
+    return send_file(buffer, as_attachment=True, download_name=filename, mimetype='application/pdf')
 
 
 @app.route('/', methods=["GET", "POST"])

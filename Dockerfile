@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install app dependencies
-RUN pip install --no-cache-dir flask "openai<1"
+RUN pip install --no-cache-dir flask "openai<1" reportlab
 
 # Copy project files
 COPY . /app

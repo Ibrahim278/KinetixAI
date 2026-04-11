@@ -30,6 +30,11 @@
     {% if openAIAnswer %}
       <h3 class="result-title">{{prompt}}</h3>
       <div class="result-body markdown-output">{{openAIAnswer}}</div>
+      <form action="/download-pdf" method="post" class="mt-3">
+        <textarea name="title" class="d-none">{{prompt}}</textarea>
+        <textarea name="content" class="d-none">{{openAIAnswer}}</textarea>
+        <button type="submit" class="btn btn-primary">Download PDF</button>
+      </form>
     {% else %}
       <p class="placeholder-result">Your generated cold email will appear here once you submit your prompt.</p>
     {% endif %}

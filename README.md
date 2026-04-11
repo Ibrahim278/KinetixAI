@@ -111,7 +111,7 @@ From the project root:
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install flask "openai<1"
+pip install flask "openai<1" reportlab
 ```
 
 Why openai<1?
