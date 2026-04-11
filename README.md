@@ -1,6 +1,8 @@
-# AI Based Content Generation
+# CogniCore
 
-A Flask web app that generates marketing and content-writing suggestions using GenAI.
+CogniCore is an AI-equipped content generation studio built with Flask.
+
+It helps marketers, founders, and content teams create high-quality drafts faster across multiple use cases from one unified interface.
 
 This project provides multiple content tools in one UI, including:
 - Product descriptions
@@ -36,11 +38,11 @@ This project provides multiple content tools in one UI, including:
 
 ## Project Overview
 
-This application is a multi-tool AI content generator built with Flask and server-rendered Jinja templates.
+This project is a multi-category AI writing assistant with a lightweight Flask backend and server-rendered Jinja templates.
 
-Each feature page collects a short user prompt from a form, sends a task-specific query to OpenAI, and renders the generated result directly on the same page.
+Each category page captures a short prompt, generates structured AI output, and returns results directly in-page with markdown formatting support and PDF export capability.
 
-The app is designed for fast idea generation workflows for creators, marketers, and business users.
+The platform is designed for fast content workflows where users can ideate, generate, refine, and download ready-to-use copy in minutes.
 
 ## Features
 
