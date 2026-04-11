@@ -10,23 +10,279 @@
     <!-- Bootstrap core CSS -->
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Favicons -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
 
 
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+      :root {
+        --bg-sand: #f5efe3;
+        --bg-cream: #fff9ee;
+        --ink: #192126;
+        --muted: #5f6b72;
+        --brand: #0f766e;
+        --brand-strong: #0a5f59;
+        --accent: #eb7a46;
+        --card: rgba(255, 253, 247, 0.88);
+        --border: rgba(20, 25, 30, 0.12);
       }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Space Grotesk", sans-serif;
+        background:
+          radial-gradient(circle at 14% 18%, rgba(235, 122, 70, 0.28), transparent 30%),
+          radial-gradient(circle at 88% 12%, rgba(15, 118, 110, 0.2), transparent 36%),
+          linear-gradient(155deg, #f8f3ea 0%, #f3ecdd 45%, #efe9dd 100%);
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(0, 0, 0, 0.03) 0.7px, transparent 0.7px);
+        background-size: 8px 8px;
+        opacity: 0.35;
+      }
+
+      h1, h2, h3, h4, h5 {
+        font-family: "Fraunces", serif;
+        letter-spacing: 0.2px;
+      }
+
+      .navbar {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(10px);
+        background: linear-gradient(110deg, rgba(13, 31, 37, 0.94), rgba(7, 58, 54, 0.9)) !important;
+      }
+
+      .navbar-brand {
+        font-family: "Fraunces", serif;
+        font-size: 1.3rem;
+        color: #fff !important;
+      }
+
+      .navbar .nav-link {
+        color: rgba(255, 255, 255, 0.82) !important;
+        font-size: 0.92rem;
+        border-radius: 999px;
+        padding: 0.35rem 0.72rem !important;
+        transition: all 0.25s ease;
+      }
+
+      .navbar .nav-link:hover {
+        color: #fff !important;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      main.container {
+        padding-top: 5.9rem;
+        padding-bottom: 2.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-panel,
+      .tool-panel,
+      .result-panel,
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 1.15rem;
+        background: var(--card);
+        box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08);
+      }
+
+      .hero-panel,
+      .tool-panel,
+      .result-panel {
+        padding: 1.9rem;
+      }
+
+      .hero-panel {
+        background:
+          linear-gradient(120deg, rgba(15, 118, 110, 0.1), rgba(235, 122, 70, 0.15)),
+          var(--card);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.74rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #145f59;
+        font-weight: 700;
+        margin-bottom: 0.85rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 2.8vw, 2.8rem);
+        line-height: 1.12;
+        margin-bottom: 0.8rem;
+      }
+
+      .hero-copy {
+        color: var(--muted);
+        font-size: 1.04rem;
+        max-width: 66ch;
+      }
+
+      .card {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 34px rgba(15, 23, 42, 0.14);
+      }
+
+      .card .card-header {
+        font-weight: 700;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .card .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .card-title {
+        margin: 0;
+      }
+
+      .card-text {
+        color: var(--muted);
+      }
+
+      .btn,
+      .btn-primary,
+      .btn-outline-primary {
+        border-radius: 999px;
+        font-weight: 700;
+        border: 0;
+        letter-spacing: 0.02em;
+      }
+
+      .btn-primary {
+        background: linear-gradient(125deg, var(--brand), var(--brand-strong));
+        box-shadow: 0 12px 24px rgba(15, 118, 110, 0.3);
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(125deg, #0c6a63, #084a46);
+        transform: translateY(-1px);
+      }
+
+      .form-label {
+        font-weight: 700;
+      }
+
+      .form-control {
+        border-radius: 0.85rem;
+        border: 1px solid rgba(16, 24, 32, 0.18);
+        padding: 0.72rem 0.82rem;
+      }
+
+      .form-control:focus {
+        border-color: rgba(15, 118, 110, 0.6);
+        box-shadow: 0 0 0 0.25rem rgba(15, 118, 110, 0.18);
+      }
+
+      .form-text,
+      .muted-note {
+        color: var(--muted);
+      }
+
+      .result-title {
+        color: var(--brand-strong);
+        margin-bottom: 0.65rem;
+      }
+
+      .result-body {
+        margin: 0;
+        line-height: 1.7;
+        color: #21303a;
+        white-space: pre-wrap;
+      }
+
+      .placeholder-result {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .reveal-up {
+        animation: revealUp 0.55s ease forwards;
+      }
+
+      .card-grid .col-lg-4,
+      .card-grid .col-md-6,
+      .card-grid .col-lg-3 {
+        animation: revealUp 0.6s ease both;
+      }
+
+      .card-grid .col-lg-4:nth-child(2),
+      .card-grid .col-md-6:nth-child(2),
+      .card-grid .col-lg-3:nth-child(2) {
+        animation-delay: 0.05s;
+      }
+
+      .card-grid .col-lg-4:nth-child(3),
+      .card-grid .col-md-6:nth-child(3),
+      .card-grid .col-lg-3:nth-child(3) {
+        animation-delay: 0.1s;
+      }
+
+      .card-grid .col-lg-4:nth-child(4),
+      .card-grid .col-md-6:nth-child(4),
+      .card-grid .col-lg-3:nth-child(4) {
+        animation-delay: 0.15s;
+      }
+
+      @keyframes revealUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 991px) {
+        .navbar .nav-link {
+          margin-bottom: 0.3rem;
+        }
+
+        main.container {
+          padding-top: 5.4rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-panel,
+        .tool-panel,
+        .result-panel {
+          padding: 1.35rem;
+          border-radius: 1rem;
+        }
+
+        .hero-title {
+          font-size: 1.72rem;
         }
       }
     </style>
@@ -37,9 +293,9 @@
   </head>
   <body>
 
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav class="navbar navbar-expand-xl navbar-dark fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Ezi Alio</a>
+          <a class="navbar-brand" href="/">Ezi Alio Studio</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
