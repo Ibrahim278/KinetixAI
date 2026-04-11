@@ -54,11 +54,15 @@ The platform is designed for fast content workflows where users can ideate, gene
 
 ## Tech Stack
 
-- Python
-- Flask
-- OpenAI Python SDK (legacy ChatCompletion-style usage)
+- Python 3.10+ (local) and Python 3.11-slim (Docker)
+- Flask (routing, templating, and API endpoints)
+- OpenAI Python SDK v1 client interface (used with Cerebras `base_url`)
+- Cerebras Inference API (`gpt-oss-120b`)
 - Jinja2 templates
 - Bootstrap 5 (CDN)
+- Marked.js + DOMPurify (safe markdown rendering in the browser)
+- ReportLab (server-side PDF generation for downloadable outputs)
+- Docker + Docker Compose (containerized local runtime)
 
 ## Project Structure
 
@@ -96,14 +100,14 @@ AI Based Content Generation/
 2. User submits a form field (for example, product title or topic).
 3. The route in app.py creates a prompt string.
 4. The prompt is sent to aicontent.openAI().
-5. OpenAI returns text output.
+5. Cerebras (via OpenAI-compatible client) returns text output.
 6. The template renders prompt and generated answer.
 
 ## Prerequisites
 
 - Python 3.9+ recommended
 - pip
-- OpenAI API key
+- Cerebras API key
 
 ## Installation
 
@@ -113,12 +117,8 @@ From the project root:
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install flask "openai<1" reportlab
+pip install flask openai reportlab
 ```
-
-Why openai<1?
-- The current code uses the older ChatCompletion API style.
-- Newer SDK versions require updated client syntax.
 
 ## Configuration
 
@@ -128,17 +128,12 @@ The current codebase includes hardcoded API keys in files. This is unsafe and sh
 
 ### Recommended Local Setup
 
-Use an environment variable instead:
+Use environment variables instead:
 
 ```bash
-export OPENAI_API_KEY="your_api_key_here"
-```
-
-Then update code to read from environment, for example:
-
-```python
-import os
-openai.api_key = os.getenv("OPENAI_API_KEY")
+export CEREBRAS_API_KEY="your_api_key_here"
+export CEREBRAS_MODEL="gpt-oss-120b"
+export CEREBRAS_API_BASE="https://api.cerebras.ai/v1"
 ```
 
 ## Run the Application
@@ -149,26 +144,28 @@ python app.py
 
 The app starts in debug mode and is available at:
 
-- http://127.0.0.1:5000/
+- http://127.0.0.1:5050/
 
 ## Run with Docker
 
 ### Option A: Docker Compose (recommended)
 
 ```bash
-export OPENAI_API_KEY="your_api_key_here"
+export CEREBRAS_API_KEY="your_api_key_here"
+export CEREBRAS_MODEL="gpt-oss-120b"
+export CEREBRAS_API_BASE="https://api.cerebras.ai/v1"
 docker compose up --build
 ```
 
 Then open:
 
-- http://127.0.0.1:5000/
+- http://127.0.0.1:5050/
 
 ### Option B: Docker only
 
 ```bash
 docker build -t ai-content-generator .
-docker run --rm -p 5000:5000 -e OPENAI_API_KEY="your_api_key_here" ai-content-generator
+docker run --rm -p 5050:5000 -e CEREBRAS_API_KEY="your_api_key_here" -e CEREBRAS_MODEL="gpt-oss-120b" -e CEREBRAS_API_BASE="https://api.cerebras.ai/v1" ai-content-generator
 ```
 
 Notes:
@@ -179,7 +176,9 @@ Notes:
 
 | Route | Methods | Purpose |
 |---|---|---|
-| / | GET, POST | Home/dashboard |
+| / | GET | Landing page |
+| /enter-categories | POST | Unlock and redirect to categories dashboard |
+| /categories | GET | Categories dashboard |
 | /product-description | GET, POST | Generate product descriptions |
 | /job-description | GET, POST | Generate job descriptions |
 | /tweet-ideas | GET, POST | Generate tweet content |
@@ -206,20 +205,14 @@ Notes:
 Install dependencies in the active virtual environment:
 
 ```bash
-pip install flask "openai<1"
+pip install flask openai reportlab
 ```
 
-### Error: OpenAI authentication failed
+### Error: Cerebras authentication failed
 
-- Confirm OPENAI_API_KEY is set.
+- Confirm CEREBRAS_API_KEY is set.
 - Confirm key has billing/usage access.
 - Restart terminal/session after exporting environment variable.
-
-### Error with newer OpenAI SDK
-
-If you installed openai>=1 accidentally, either:
-- Pin to openai<1, or
-- Refactor the code to the new OpenAI client API.
 
 ## Security Notes
 
