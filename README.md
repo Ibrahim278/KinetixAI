@@ -30,7 +30,9 @@ This project provides multiple content tools in one UI, including:
 13. [Troubleshooting](#troubleshooting)
 14. [Security Notes](#security-notes)
 15. [Recommended Improvements](#recommended-improvements)
-16. [License](#license)
+16. [Future Work](#future-work)
+17. [Upcoming Updates](#upcoming-updates)
+18. [License](#license)
 
 ## Project Overview
 
@@ -232,6 +234,55 @@ If you installed openai>=1 accidentally, either:
 - Add pytest coverage for route behavior and helper functions.
 - Add .env support with python-dotenv and remove hardcoded secrets.
 - Add production configuration (gunicorn, logging, debug=False).
+
+## Future Work
+
+### Product and UX
+
+- Add generation controls for tone, audience, output length, and format.
+- Add reusable prompt templates for each content category.
+- Add one-click actions: copy, export (`.txt`, `.md`), regenerate section, and rewrite selected text.
+- Add generation progress and streaming output to improve user feedback.
+
+### Content Expansion
+
+- Add SEO tools: meta title/description generation, FAQs, and keyword clusters.
+- Add ad-copy tools: Google ads, social ad variants, and CTA libraries.
+- Add email workflows: welcome sequence, nurture sequence, and sales follow-up templates.
+- Add support and technical writing categories: help docs, release notes, and changelog generation.
+
+### Platform and Collaboration
+
+- Add user accounts, saved history, and project-based organization.
+- Add brand voice profiles to apply consistent writing style across all outputs.
+- Add team collaboration with shared workspaces and review/approval flow.
+
+### Engineering and Security
+
+- Add retry logic, telemetry, and robust API error handling.
+- Add request rate limits and abuse protection.
+- Add automated testing for routes, generation handlers, and formatting pipeline.
+- Add CI secret scanning and stronger configuration validation.
+
+## Upcoming Updates
+
+### Phase 1: Immediate Updates
+
+- Improve markdown output consistency and enforce cleaner section hierarchy.
+- Add enhanced output actions (copy, download, regenerate).
+- Improve loading and error states across all generator pages.
+
+### Phase 2: Feature Growth
+
+- Introduce new content categories (SEO, ad copy, and email sequences).
+- Add user history and project grouping.
+- Introduce brand profile presets for writing tone and messaging consistency.
+
+### Phase 3: Scale and Reliability
+
+- Add authentication and usage tracking.
+- Add monitoring/logging for production reliability.
+- Add optional billing/plan controls for quota-based usage.
 
 ## License
 
