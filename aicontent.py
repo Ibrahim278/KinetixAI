@@ -1,10 +1,15 @@
 import os
+import openai as _openai
 from openai import OpenAI
 import config
 
+# Prefer explicit env var, fall back to config values
+_api_key = os.getenv("CEREBRAS_API_KEY") or os.getenv("OPENAI_API_KEY") or config.CEREBRAS_API_KEY or config.OPENAI_API_KEY
+_base_url = os.getenv("CEREBRAS_API_BASE") or config.CEREBRAS_API_BASE
+
 _client = OpenAI(
-    api_key=os.getenv("CEREBRAS_API_KEY", config.CEREBRAS_API_KEY),
-    base_url=config.CEREBRAS_API_BASE,
+    api_key=_api_key,
+    base_url=_base_url,
 )
 
 _FORMAT_GUIDE = """
@@ -45,17 +50,29 @@ def openAI(query):
         {"role": "user", "content": f"{query}\n\n{_FORMAT_GUIDE}"},
     ]
 
+    # Validate API key before attempting requests
+    if not _api_key:
+        return "[Error] No API key configured. Set CEREBRAS_API_KEY or OPENAI_API_KEY in your environment."
+
     chunks = []
     for _ in range(3):
-        response = _client.chat.completions.create(
-            model=config.CEREBRAS_MODEL,
-            messages=messages,
-            temperature=0.5,
-            max_tokens=900,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0,
-        )
+        try:
+            response = _client.chat.completions.create(
+                model=config.CEREBRAS_MODEL,
+                messages=messages,
+                temperature=0.5,
+                max_tokens=900,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0,
+            )
+        except Exception as e:
+            # Provide a helpful error string instead of raising an internal server error
+            try:
+                err_msg = str(e)
+            except Exception:
+                err_msg = "Unknown API error"
+            return f"[Error] AI request failed: {err_msg}. Check your API key and CEREBRAS_API_BASE configuration."
 
         choices = response.choices if response and response.choices else []
         if not choices:
