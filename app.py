@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect, url_for, session
 from io import BytesIO
 import re
 import textwrap
@@ -21,6 +21,12 @@ def page_not_found(e):
 app = Flask(__name__)
 app.config.from_object(config.config['development'])
 app.register_error_handler(404, page_not_found)
+
+
+def _guard_category_access():
+    if not session.get('entered_categories'):
+        return redirect(url_for('index'))
+    return None
 
 
 def _safe_filename(value):
@@ -86,14 +92,26 @@ def index():
     return render_template('landing.html', **locals())
 
 
+@app.route('/enter-categories', methods=["POST"])
+def enter_categories():
+    session['entered_categories'] = True
+    return redirect(url_for('categories'))
+
+
 @app.route('/categories', methods=["GET"])
 def categories():
+    guard = _guard_category_access()
+    if guard:
+        return guard
     return render_template('index.html', **locals())
 
 
 
 @app.route('/product-description', methods=["GET", "POST"])
 def productDescription():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['productDescription']
@@ -107,6 +125,9 @@ def productDescription():
 
 @app.route('/job-description', methods=["GET", "POST"])
 def jobDescription():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['jobDescription']
@@ -120,6 +141,9 @@ def jobDescription():
 
 @app.route('/tweet-ideas', methods=["GET", "POST"])
 def tweetIdeas():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['tweetIdeas']
@@ -133,6 +157,9 @@ def tweetIdeas():
 
 @app.route('/cold-emails', methods=["GET", "POST"])
 def coldEmails():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['coldEmails']
@@ -146,6 +173,9 @@ def coldEmails():
 
 @app.route('/social-media', methods=["GET", "POST"])
 def socialMedia():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['socialMedia']
@@ -158,6 +188,9 @@ def socialMedia():
 
 @app.route('/business-pitch', methods=["GET", "POST"])
 def businessPitch():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['businessPitch']
@@ -170,6 +203,9 @@ def businessPitch():
 
 @app.route('/video-ideas', methods=["GET", "POST"])
 def videoIdeas():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['videoIdeas']
@@ -182,6 +218,9 @@ def videoIdeas():
 
 @app.route('/video-description', methods=["GET", "POST"])
 def videoDescription():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['videoDescription']
@@ -193,6 +232,9 @@ def videoDescription():
 
 @app.route('/blog-ideas', methods=["GET", "POST"])
 def generateBlogTopics():
+    guard = _guard_category_access()
+    if guard:
+        return guard
 
     if request.method == 'POST':
         submission = request.form['blogIdeas']

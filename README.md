@@ -1,6 +1,6 @@
-# CogniCore: An AI-Equipped Content Generation Studio
+# KinetixAI: An AI-Equipped Content Generation Studio
 
-CogniCore is an AI-equipped content generation studio built with Flask.
+KinetixAI is an AI-equipped content generation studio built with Flask.
 
 It helps marketers, founders, and content teams create high-quality drafts faster across multiple use cases from one unified interface.
 
