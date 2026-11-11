@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -22,15 +22,15 @@
 
     <style>
       :root {
-        --bg-sand: #f5efe3;
-        --bg-cream: #fff9ee;
-        --ink: #192126;
-        --muted: #5f6b72;
-        --brand: #0f766e;
-        --brand-strong: #0a5f59;
-        --accent: #eb7a46;
-        --card: rgba(255, 253, 247, 0.88);
-        --border: rgba(20, 25, 30, 0.12);
+        --bg-deep: #060b16;
+        --bg-panel: #0d1627;
+        --ink: #edf7ff;
+        --muted: #8fa4b8;
+        --brand: #27d7ff;
+        --brand-strong: #00a7d6;
+        --accent: #65f6bd;
+        --card: rgba(13, 25, 43, 0.88);
+        --border: rgba(119, 213, 255, 0.18);
       }
 
       * {
@@ -42,9 +42,9 @@
         color: var(--ink);
         font-family: "Space Grotesk", sans-serif;
         background:
-          radial-gradient(circle at 14% 18%, rgba(235, 122, 70, 0.28), transparent 30%),
-          radial-gradient(circle at 88% 12%, rgba(15, 118, 110, 0.2), transparent 36%),
-          linear-gradient(155deg, #f8f3ea 0%, #f3ecdd 45%, #efe9dd 100%);
+          radial-gradient(circle at 8% 8%, rgba(0, 167, 214, 0.2), transparent 28%),
+          radial-gradient(circle at 92% 18%, rgba(101, 246, 189, 0.12), transparent 30%),
+          linear-gradient(145deg, #070d1b 0%, #091323 48%, #050913 100%);
         min-height: 100vh;
       }
 
@@ -53,30 +53,34 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        background-image: radial-gradient(rgba(0, 0, 0, 0.03) 0.7px, transparent 0.7px);
-        background-size: 8px 8px;
-        opacity: 0.35;
+        background-image:
+          linear-gradient(rgba(92, 182, 232, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(92, 182, 232, 0.045) 1px, transparent 1px);
+        background-size: 36px 36px;
+        opacity: 0.55;
       }
 
       h1, h2, h3, h4, h5 {
-        font-family: "Fraunces", serif;
-        letter-spacing: 0.2px;
+        font-family: "Space Grotesk", sans-serif;
+        letter-spacing: -0.02em;
       }
 
       .navbar {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(10px);
-        background: linear-gradient(110deg, rgba(13, 31, 37, 0.94), rgba(7, 58, 54, 0.9)) !important;
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(16px);
+        background: rgba(5, 11, 23, 0.9) !important;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
       }
 
       .navbar-brand {
-        font-family: "Fraunces", serif;
+        font-family: "IBM Plex Mono", monospace;
         font-size: 1.3rem;
-        color: #fff !important;
+        color: var(--brand) !important;
+        letter-spacing: -0.08em;
       }
 
       .navbar .nav-link {
-        color: rgba(255, 255, 255, 0.82) !important;
+        color: rgba(237, 247, 255, 0.72) !important;
         font-size: 0.92rem;
         border-radius: 999px;
         padding: 0.35rem 0.72rem !important;
@@ -84,8 +88,8 @@
       }
 
       .navbar .nav-link:hover {
-        color: #fff !important;
-        background: rgba(255, 255, 255, 0.12);
+        color: var(--brand) !important;
+        background: rgba(39, 215, 255, 0.1);
       }
 
       main.container {
@@ -102,7 +106,8 @@
         border: 1px solid var(--border);
         border-radius: 1.15rem;
         background: var(--card);
-        box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(12px);
       }
 
       .hero-panel,
@@ -113,16 +118,17 @@
 
       .hero-panel {
         background:
-          linear-gradient(120deg, rgba(15, 118, 110, 0.1), rgba(235, 122, 70, 0.15)),
+          linear-gradient(120deg, rgba(0, 167, 214, 0.12), rgba(101, 246, 189, 0.08)),
           var(--card);
       }
 
       .eyebrow {
         display: inline-block;
+        font-family: "IBM Plex Mono", monospace;
         font-size: 0.74rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: #145f59;
+        color: var(--accent);
         font-weight: 700;
         margin-bottom: 0.85rem;
       }
@@ -146,13 +152,15 @@
 
       .card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 22px 34px rgba(15, 23, 42, 0.14);
+        border-color: rgba(39, 215, 255, 0.48);
+        box-shadow: 0 22px 42px rgba(0, 0, 0, 0.42), 0 0 24px rgba(39, 215, 255, 0.08);
       }
 
       .card .card-header {
         font-weight: 700;
         border-bottom: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.7);
+        background: rgba(39, 215, 255, 0.06);
+        color: var(--brand);
       }
 
       .card .card-body {
@@ -179,12 +187,14 @@
       }
 
       .btn-primary {
-        background: linear-gradient(125deg, var(--brand), var(--brand-strong));
-        box-shadow: 0 12px 24px rgba(15, 118, 110, 0.3);
+        color: #04111d;
+        background: linear-gradient(125deg, var(--brand), var(--accent));
+        box-shadow: 0 12px 24px rgba(39, 215, 255, 0.2);
       }
 
       .btn-primary:hover {
-        background: linear-gradient(125deg, #0c6a63, #084a46);
+        color: #04111d;
+        background: linear-gradient(125deg, #75e9ff, #8affcf);
         transform: translateY(-1px);
       }
 
@@ -194,13 +204,21 @@
 
       .form-control {
         border-radius: 0.85rem;
-        border: 1px solid rgba(16, 24, 32, 0.18);
+        border: 1px solid rgba(119, 213, 255, 0.22);
+        background: rgba(4, 12, 26, 0.8);
+        color: var(--ink);
         padding: 0.72rem 0.82rem;
       }
 
+      .form-control::placeholder {
+        color: #657d92;
+      }
+
       .form-control:focus {
-        border-color: rgba(15, 118, 110, 0.6);
-        box-shadow: 0 0 0 0.25rem rgba(15, 118, 110, 0.18);
+        border-color: rgba(39, 215, 255, 0.7);
+        background: rgba(4, 12, 26, 0.95);
+        color: var(--ink);
+        box-shadow: 0 0 0 0.25rem rgba(39, 215, 255, 0.14);
       }
 
       .form-text,
@@ -209,14 +227,14 @@
       }
 
       .result-title {
-        color: var(--brand-strong);
+        color: var(--brand);
         margin-bottom: 0.65rem;
       }
 
       .result-body {
         margin: 0;
         line-height: 1.7;
-        color: #21303a;
+        color: #d7e8f4;
         white-space: pre-wrap;
       }
 
@@ -245,7 +263,7 @@
 
       .result-body.markdown-output strong {
         font-weight: 700;
-        color: #0f2e3a;
+        color: var(--accent);
       }
 
       .result-body.markdown-output h1,
@@ -254,7 +272,7 @@
         margin-top: 1rem;
         margin-bottom: 0.55rem;
         font-size: 1.15rem;
-        color: #0d3f44;
+        color: var(--brand);
       }
 
       .result-body.markdown-output h2 {
@@ -269,33 +287,42 @@
         width: 100%;
         border-collapse: collapse;
         margin: 0.6rem 0 1.1rem;
-        border: 1px solid rgba(25, 33, 38, 0.15);
+        border: 1px solid var(--border);
         border-radius: 0.6rem;
         overflow: hidden;
       }
 
       .result-body.markdown-output th,
       .result-body.markdown-output td {
-        border: 1px solid rgba(25, 33, 38, 0.12);
+        border: 1px solid rgba(119, 213, 255, 0.12);
         padding: 0.5rem 0.62rem;
         text-align: left;
         vertical-align: top;
       }
 
       .result-body.markdown-output th {
-        background: rgba(15, 118, 110, 0.08);
+        background: rgba(39, 215, 255, 0.08);
         font-weight: 700;
       }
 
       .result-body.markdown-output hr {
         border: 0;
-        border-top: 1px solid rgba(25, 33, 38, 0.2);
+        border-top: 1px solid var(--border);
         margin: 1.1rem 0;
       }
 
       .placeholder-result {
         margin: 0;
         color: var(--muted);
+      }
+
+      .site-footer {
+        position: relative;
+        z-index: 1;
+        color: #637d94;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
       }
 
       .reveal-up {
